@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/ui/Button.astro';
+import Table from '../components/ui/Table.astro';
+import TableRow from '../components/ui/TableRow.astro';
+import TableCell from '../components/ui/TableCell.astro';
+import SaleModal from '../components/modals/SaleModal.astro';
+---
+
+<Layout title="Sales - iPhone Store">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold">Sales Records</h1>
+      <Button id="newSaleButton" variant="success">New Sale</Button>
+    </div>
+
+    <Table headers={['Date', 'Model', 'Quantity', 'Price', 'Total', 'Customer']}>
+      <TableRow>
+        <TableCell>2024-03-20</TableCell>
+        <TableCell>iPhone 14 Pro</TableCell>
+        <TableCell>1</TableCell>
+        <TableCell>$999</TableCell>
+        <TableCell>$999</TableCell>
+        <TableCell>John Doe</TableCell>
+      </TableRow>
+    </Table>
+  </div>
+
+  <SaleModal />
+</Layout>

@@ -1,0 +1,12 @@
+import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
+
+// Add client integration
+export default defineConfig({
+  integrations: [tailwind()],
+  server: {
+    port: 4321,
+    host: true
+  },
+  output: 'hybrid'
+});

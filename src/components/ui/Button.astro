@@ -1,0 +1,44 @@
+---
+interface Props {
+  variant?: 'primary' | 'success' | 'danger';
+  class?: string;
+  id?: string;
+  type?: 'button' | 'submit' | 'reset';
+}
+
+const { 
+  variant = 'primary', 
+  class: className, 
+  id,
+  type = 'button'
+} = Astro.props;
+
+const baseStyles = 'px-4 py-2 rounded hover:opacity-90 transition-opacity';
+const variantStyles = {
+  primary: 'bg-blue-600 text-white hover:bg-blue-700',
+  success: 'bg-green-600 text-white hover:bg-green-700',
+  danger: 'bg-red-600 text-white hover:bg-red-700'
+};
+---
+
+<button 
+  type={type}
+  id={id}
+  class:list={[baseStyles, variantStyles[variant], className]}
+>
+  <slot />
+</button>
+
+<script>
+  // Make the button interactive
+  const button = document.currentScript?.parentElement;
+  if (button) {
+    button.addEventListener('click', (e) => {
+      const event = new CustomEvent('button-click', {
+        bubbles: true,
+        detail: { id: button.id }
+      });
+      button.dispatchEvent(event);
+    });
+  }
+</script>

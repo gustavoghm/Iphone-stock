@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/ui/Button.astro';
+import Table from '../components/ui/Table.astro';
+import TableRow from '../components/ui/TableRow.astro';
+import TableCell from '../components/ui/TableCell.astro';
+import CustomerModal from '../components/modals/CustomerModal.astro';
+import { formatDate } from '../utils/formatters';
+---
+
+<Layout title="Customers - iPhone Store">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold">Customer Management</h1>
+      <Button id="addNewCustomerButton" variant="primary">Add New Customer</Button>
+    </div>
+
+    <Table headers={['Name', 'Email', 'Phone', 'City', 'State', 'Registration Date', 'Actions']}>
+      <TableRow>
+        <TableCell>John Doe</TableCell>
+        <TableCell>john@example.com</TableCell>
+        <TableCell>(555) 123-4567</TableCell>
+        <TableCell>New York</TableCell>
+        <TableCell>NY</TableCell>
+        <TableCell>2024-03-20</TableCell>
+        <TableCell class="space-x-2">
+          <button class="edit-button text-blue-600 hover:text-blue-900" data-id="1">Edit</button>
+          <button class="delete-button text-red-600 hover:text-red-900" data-id="1">Delete</button>
+        </TableCell>
+      </TableRow>
+    </Table>
+  </div>
+
+  <CustomerModal />
+</Layout>
+
+<script>
+  document.querySelectorAll('.edit-button').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const id = (e.target as HTMLElement).dataset.id;
+      console.log('Edit customer:', id);
+      const modal = document.querySelector('#customerModal') as HTMLDialogElement;
+      modal.showModal();
+    });
+  });
+
+  document.querySelectorAll('.delete-button').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const id = (e.target as HTMLElement).dataset.id;
+      if (confirm('Are you sure you want to delete this customer?')) {
+        console.log('Delete customer:', id);
+      }
+    });
+  });
+</script>
